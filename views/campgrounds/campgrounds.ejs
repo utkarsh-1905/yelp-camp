@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') %>
+<div id="map" class="mt-0" style="max-width: 100%; height:500px;"></div>
+<h1 class="mt-4 display-4 mb-4 text-center">All Campgrounds</h1>
+<%for(let campground of data){%>
+<div class="card mb-3">
+  <div class="row">
+    <div class="col-md-4">
+      <%if(campground.images.length) {%>
+      <img class="img-fluid" alt="" src="<%=campground.images[0].url%>" />
+      <% }else{%>
+      <img
+        class="img-fluid"
+        alt=""
+        src="https://res.cloudinary.com/dhoayd4fv/image/upload/v1640785745/YelpCamp/xr5aipvc1ef4h5gwdlwa.jpg"
+      />
+      <% } %>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"><%=campground.title%></h5>
+        <p class="card-text"><%=campground.description%></p>
+        <p class="card-text">
+          <small class="text-muted"><%=campground.location %> </small>
+        </p>
+        <a href="/campgrounds/<%=campground._id%>" class="btn btn-primary"
+          >View <%=campground.title%>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<% } %>
+<script>
+  const token = '<%-process.env.MAPBOX_ACCESS_KEY%>';
+  const campgrounds = {features : <%- JSON.stringify(data) %>}; //object with features is exprected by clustermap of mapbox for plotting the points
+</script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+<script src="/js/clusterMap.js"></script>
