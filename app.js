@@ -97,8 +97,10 @@ app.get('/', (req, res) => {
     res.render('home');
 })
 
-app.listen(8000, () => {
-    console.log("Server Connected to port 3000");
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+    console.log(`Server Connected to port ${port}`);
 });
 
 //Async functions should be wrapped in try-catch block to catch any error
